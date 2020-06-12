@@ -12,10 +12,7 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        //storage = new Resume[10000];
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, 0 , size, null);   // Метод fill заполняет массив выбранными значением
         size = 0;
     }
 
@@ -65,8 +62,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] result = Arrays.copyOf(storage, size);
-        return result;
+        return Arrays.copyOfRange(storage,0,  size);
 
     }
 
