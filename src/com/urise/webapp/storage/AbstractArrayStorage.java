@@ -12,9 +12,12 @@ import java.util.Arrays;
  */
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 100000;
-    protected Resume[] storage = new Resume[STORAGE_LIMIT];
+    protected Resume[] storage;
     protected int size = 0;
 
+    public AbstractArrayStorage() {
+        this.storage = new Resume[STORAGE_LIMIT];
+    }
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);   // Метод fill заполняет массив выбранными значением
@@ -23,7 +26,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(Resume r) {
         int index = getIndex(r.getUuid());
-        if (index != -1) {
+        if (index < 0) {
             throw new NotExistStorageException(r.getUuid());
         } else {
             storage[index] = r;
@@ -37,7 +40,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume r) {
 
         int index = getIndex(r.getUuid());
-        if (index > 0) {
+        if (index >= 0) {
             throw new ExistStorageException(r.getUuid());
         } else if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());

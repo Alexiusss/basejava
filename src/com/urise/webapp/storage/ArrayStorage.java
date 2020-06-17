@@ -7,6 +7,9 @@ import com.urise.webapp.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
+    public ArrayStorage() {
+    }
+
     @Override
     protected void fillDeleteElement(int index) {
         storage[index] = storage[size - 1];
