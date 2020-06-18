@@ -18,7 +18,6 @@ public abstract class AbstractStorage implements Storage {
     protected abstract Resume doGet(Object searchKey);
 
 
-
     public void update(Resume r) {
         Object searchKey = getExistedSearchKey(r.getUuid());
         doUpdate(r, searchKey);
