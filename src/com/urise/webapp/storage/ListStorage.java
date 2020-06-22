@@ -39,6 +39,7 @@ public class ListStorage extends AbstractStorage {
         return list.get((Integer) searchKey);
     }
 
+
     @Override
     protected void doDelete(Object searchKey) {
         list.remove(((Integer) searchKey).intValue());
@@ -51,9 +52,10 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return list.toArray(new Resume[list.size()]);
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(list);
     }
+
 
     @Override
     public int size() {

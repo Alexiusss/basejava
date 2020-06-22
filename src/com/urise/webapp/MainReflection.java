@@ -15,11 +15,10 @@ public class MainReflection {
 //        declaredField.get(r);
 //        declaredField.set(r, "new_uuid");
 //        System.out.println(declaredField.get(r));
-//        // TODO : invoke r.toString via reflection
 //        System.out.println(r);
 
 
-        Resume r2 = new Resume();
+        Resume r2 = new Resume("Name");
         System.out.println(r2.toString());
         System.out.println("================================================");
 
