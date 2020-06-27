@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
+
+    protected static final File STORAGE_DIR = new File("C:\\workspace\\gitrepository\\basejava\\src\\com\\urise\\webapp\\storage");
 
     protected Storage storage;
 
