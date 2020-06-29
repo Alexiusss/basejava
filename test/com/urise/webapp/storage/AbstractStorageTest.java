@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
 
-    protected static final File STORAGE_DIR = new File("C:\\workspace\\gitrepository\\basejava\\src\\com\\urise\\webapp\\storage");
+    protected static final File STORAGE_DIR = new File("C:\\workspace\\gitrepository\\basejava\\storage");
 
     protected Storage storage;
 

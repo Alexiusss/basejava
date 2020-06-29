@@ -35,7 +35,7 @@ public class MainFile {
 
 
     }
-// TODO: make pretty output
+// TODO: make pretty output with reflection, bigger index for catalogs
     public void printDirectoryDeeply(File dir) {
 
         File[] files = dir.listFiles();
