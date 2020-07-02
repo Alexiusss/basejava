@@ -4,6 +4,7 @@ import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.Map;
 
 public class DataStreamSerializer implements StreamSerializer {
@@ -16,12 +17,10 @@ public class DataStreamSerializer implements StreamSerializer {
             dos.writeUTF(r.getUuid());
             dos.writeUTF(r.getFullName());
             Map<ContactType, String> contacts = r.getContacts();
-            dos.writeInt(contacts.size());  // Добавили стоп маркер для дальнейшего чтения
-            for (Map.Entry<ContactType, String> entry : contacts.entrySet()){
+            writeCollection(dos, contacts.entrySet(), entry -> {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
-            }
-            //TODO implements sections
+            });
         }
     }
 
@@ -32,11 +31,50 @@ public class DataStreamSerializer implements StreamSerializer {
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
             int size = dis.readInt(); // Считываем стоп маркер
-            for (int i = 0; i < size; i++){
+            for (int i = 0; i < size; i++) {
                 resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
             }
+
             //TODO implement sections
+//            while (dis.available() != -1) {
+//                if (dis.readUTF().contains("StartTextSection")) {
+//                    resume.addSection(SectionType.valueOf(dis.readUTF()), new TextSection(dis.readUTF()));
+//                }
+//                if (dis.readUTF().contains("StartListSection")) {
+//                    String typeSection = dis.readUTF();
+//                    List<String> list = new ArrayList<>();
+//                    while (dis.readUTF() != "EndListSection") {
+//                        list.add(dis.readUTF());
+//                    }
+//                    resume.addSection(SectionType.valueOf(typeSection), new ListSection(list));
+//                }
+//                if (dis.readUTF().contains("StartOrganizationSection")) {
+//
+//                    String typeSection = dis.readUTF();
+//                    Link link = new Link(dis.readUTF(), dis.readUTF());
+//                    while (dis.readUTF() != "EndListSection"){
+//
+//
+//
+//                    }
+//
+//                }
+//            }
+//
             return resume;
         }
+
+    }
+
+    private interface ElementWriter<T> {
+        void write(T t) throws IOException;
+    }
+
+    private <T> void writeCollection(DataOutputStream dos, Collection<T> collection, ElementWriter<T> writer) throws IOException {
+        dos.writeInt(collection.size());
+        for (T item : collection) {
+            writer.write(item);
+        }
+
     }
 }

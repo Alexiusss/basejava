@@ -28,6 +28,14 @@ public class Organization implements Serializable {
         this(new Link(name, url), Arrays.asList(positions));
     }
 
+    public Link getHomePage() {
+        return homePage;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
     public Organization(Link homePage, List<Position> positions) {
         this.homePage = homePage;
         this.positions = positions;
@@ -98,6 +106,7 @@ public class Organization implements Serializable {
         public String getDescription() {
             return description;
         }
+
 
         @Override
         public boolean equals(Object o) {
