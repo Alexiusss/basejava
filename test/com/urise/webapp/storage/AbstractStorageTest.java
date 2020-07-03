@@ -2,13 +2,13 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.ContactType;
-import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,7 +39,6 @@ public abstract class AbstractStorageTest {
 
         R1.addContact(ContactType.MAIL, "mail1@ya.ru");
         R1.addContact(ContactType.PHONE, "11111");
-        /*
         R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
         R1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         R1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment11", "Achivment12", "Achivment13"));
@@ -61,7 +60,6 @@ public abstract class AbstractStorageTest {
                 new OrganizationSection(
                         new Organization("Organization2", "http://Organization2.ru",
                                       new Organization.Position(2015, Month.JANUARY, "position1", "content1"))));
-   */
     }
 
 
@@ -102,8 +100,15 @@ public abstract class AbstractStorageTest {
         storage.get("dummy");
     }
 
+//    @Test
+//    public void getAll() {
+//        List<Resume> list = storage.getAllSorted();
+//        assertEquals(3, list.size());
+//        assertEquals(list, Arrays.asList(R1, R2, R3));
+//    }
+
     @Test
-    public void getAll() {
+    public void getAllSorted() throws Exception {
         List<Resume> list = storage.getAllSorted();
         assertEquals(3, list.size());
         assertEquals(list, Arrays.asList(R1, R2, R3));
@@ -136,12 +141,12 @@ public abstract class AbstractStorageTest {
         storage.get("dummy");
     }
 
+
     @Test
-    public void get() {
+    public void get() throws Exception {
         assertGet(R1);
         assertGet(R2);
         assertGet(R3);
-
     }
 
     @Test(expected = NotExistStorageException.class)

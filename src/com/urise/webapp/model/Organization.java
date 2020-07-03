@@ -62,7 +62,7 @@ public class Organization implements Serializable {
 
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    public static class Position implements Serializable{
+    public static class Position implements Serializable {
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
@@ -88,7 +88,7 @@ public class Organization implements Serializable {
             this.startDate = startDate;
             this.endDate = endDate;
             this.title = title;
-            this.description = description;
+            this.description = description == null ? "" : description;
         }
 
         public LocalDate getStartDate() {
