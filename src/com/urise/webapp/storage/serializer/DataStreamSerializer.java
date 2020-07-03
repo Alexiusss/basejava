@@ -38,8 +38,8 @@ public class DataStreamSerializer implements StreamSerializer {
                     case EXPERIENCE:
                     case EDUCATION:
                         writeCollection(dos, ((OrganizationSection) section).getOrganisations(), org -> {
-                            dos.writeUTF(org.getHomePage().getUrl());
                             dos.writeUTF(org.getHomePage().getName());
+                            dos.writeUTF(org.getHomePage().getUrl());
                             writeCollection(dos, org.getPositions(), position -> {
                                 writeLocalDate(dos, position.getStartDate());
                                 writeLocalDate(dos, position.getEndDate());
@@ -50,7 +50,6 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                 }
             });
-
         }
     }
 
@@ -73,17 +72,13 @@ public class DataStreamSerializer implements StreamSerializer {
             readItems(dis, () -> {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
                 resume.addSection(sectionType, readSection(dis, sectionType));
-
             });
-
             return resume;
         }
-
     }
 
     private Section readSection(DataInputStream dis, SectionType sectionType) throws IOException {
         switch (sectionType) {
-
             case PERSONAL:
             case OBJECTIVE:
                 return new TextSection(dis.readUTF());
@@ -94,11 +89,11 @@ public class DataStreamSerializer implements StreamSerializer {
             case EDUCATION:
                 return new OrganizationSection(
                         readList(dis, () -> new Organization(
-                                new Link(dis.readUTF(), dis.readUTF()), readList(dis, () -> new Organization.Position(
-                                readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()
-                        ))
-                        ))
-                );
+                                new Link(dis.readUTF(), dis.readUTF()),
+                                readList(dis, () -> new Organization.Position(
+                                        readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()
+                                ))
+                        )));
             default:
                 throw new IllegalStateException();
         }
@@ -130,7 +125,6 @@ public class DataStreamSerializer implements StreamSerializer {
         for (int i = 0; i < size; i++) {
             processor.process();
         }
-
     }
 
     private <T> void writeCollection(DataOutputStream dos, Collection<T> collection, ElementWriter<T> writer) throws IOException {
@@ -138,6 +132,5 @@ public class DataStreamSerializer implements StreamSerializer {
         for (T item : collection) {
             writer.write(item);
         }
-
     }
 }
