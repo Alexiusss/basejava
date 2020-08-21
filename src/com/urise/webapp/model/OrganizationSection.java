@@ -22,7 +22,7 @@ public class OrganizationSection extends Section {
         this.organizations = organizations;
     }
 
-    public List<Organization> getOrganisations() {
+    public List<Organization> getOrganizations() {
         return organizations;
     }
 

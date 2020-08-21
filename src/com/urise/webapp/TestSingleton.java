@@ -24,7 +24,7 @@ public class TestSingleton {
         System.out.println(instance.ordinal());
 
         for (SectionType type: SectionType.values()){
-            System.out.println(type.getTitile());
+            System.out.println(type.getTitle());
         }
     }
 

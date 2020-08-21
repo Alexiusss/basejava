@@ -139,7 +139,7 @@ public class ResumeServlet extends HttpServlet {
                             List<Organization> emptyFirstOrganizations = new ArrayList<>();
                             emptyFirstOrganizations.add(Organization.EMPTY);
                             if (orgSection != null) {
-                                for (Organization org : orgSection.getOrganisations()) {
+                                for (Organization org : orgSection.getOrganizations()) {
                                     List<Organization.Position> emptyFirstPositions = new ArrayList<>();
                                     emptyFirstPositions.add(Organization.Position.EMPTY);
                                     emptyFirstPositions.addAll(org.getPositions());
@@ -161,9 +161,6 @@ public class ResumeServlet extends HttpServlet {
         ).forward(request, response);
     }
 }
-
-
-
 
 
 
